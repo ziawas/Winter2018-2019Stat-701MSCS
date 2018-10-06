@@ -104,7 +104,7 @@ print("\nSum of All Y-hat values = ", ΣY_hat)
 print("\nY = {} + {}X1 + {}X2".format(Beta0, Beta1, Beta2))
 
 # Here comes the big league
-TSS = np.sum((My_Y - Y_hat) ** 2)
+TSS = np.sum((My_Y - Y_bar) ** 2)
 MSS = np.sum((Y_hat - Y_bar) ** 2)
 RSS = np.sum((My_Y - Y_hat) ** 2)
 
@@ -117,7 +117,7 @@ R_square = MSS / TSS
 print("\nR_square = ", R_square)
 
 # Mean Square Error coming through.....clear the wayyyyy
-MSE = RSS / n - k
+MSE = RSS / (n - k)
 print("\nMeans Square Error : MSE = ", MSE)
 
 # Beta1's secret
