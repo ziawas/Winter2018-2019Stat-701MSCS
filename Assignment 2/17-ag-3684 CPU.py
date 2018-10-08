@@ -8,6 +8,7 @@ import statsmodels.api as sm
 from mpl_toolkits.mplot3d import Axes3D
 from statsmodels.formula.api import ols
 import pandas as pd
+
 #1 way to combine data
 #Upload excel file
 #fg=pd.read_csv("add.csv")
@@ -30,30 +31,43 @@ rt = Reg2.fit()
 print("Values of regression coefficients and intercept")
 print(rt.params)
 gt=np.array(rt.fittedvalues)
+
+#MEAN VALUE OF CPU
 num_items = len(CPU)
 mean = sum(CPU) / num_items
 print("Y bar VAlue is=",mean)
+
+#TOTAL SUM OF SQUARE
 differences = [CPU - mean for CPU in CPU]
 sq_differences = [d ** 2 for d in differences]
 ghj = np.sum(sq_differences)
 print('The  TOTAL sum of square(TSS) is =',ghj)
+
+#REGRESSION SUM OF SQUARE
 d = np.array([gt - 43.85])
 jk = np.array([d ** 2 for d in d])
 hjk = np.sum(jk)
 print('The REGRESSION SUM OF SQUARE (RSS)is =',hjk)
+
+#ERROR SUM OF SQUARE
 differences = [CPU - gt]
 sq_differences = [d ** 2 for d in differences]
 ssd = np.sum(sq_differences)
 print('The ERROR sum of square is(ESS) =.',ssd)
+
+#R SQUARE COEFFICIENT OF DETERMINATION
 print("R Square Value")
 ik=hjk/ghj
 print("R Square is=",ik)
+
 #Summary of Whole Data
 print(rt.summary())
+
 print ("ANOVA TABLE FOR GIVEN DATA")
 mod = ols('CPU ~ RAMS + REG', data=fg).fit()
 aov_table = sm.stats.anova_lm(mod, typ=2)
 print(aov_table)
+
 #ONe Sample T Test
 print("One Sample T Test ")
 one=stats.ttest_1samp(RAMS, 0.0)
@@ -62,6 +76,7 @@ one=stats.ttest_1samp(REG, 0.0)
 print(one)
 one=stats.ttest_1samp(CPU, 0.0)
 print(one)
+
 #Scatter Plot
 ax.scatter(RAMS,REG,CPU,c='blue',marker='o')
 ax.set_xlabel("RAM SIZE")
