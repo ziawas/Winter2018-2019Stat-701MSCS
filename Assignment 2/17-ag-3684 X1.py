@@ -8,6 +8,7 @@ import statsmodels.api as sm
 from mpl_toolkits.mplot3d import Axes3D
 from statsmodels.formula.api import ols
 import pandas as pd
+
 #GET DATA FROM EXCEL FILE
 fg=pd.read_csv("adt.csv")
 fg.head()
@@ -21,28 +22,42 @@ rt = Reg2.fit()
 print(fg)
 print(rt.params)
 gt=np.array(rt.fittedvalues)
+
+#MEAN VALUE OF Y
 num_items = len(Y)
 mean = sum(Y) / num_items
+
+#TOTAL SUM OF SQUARE
 differences = [Y - mean for Y in Y]
 sq_differences = [d ** 2 for d in differences]
 ol = np.sum(sq_differences)
 print('The  TOTAL sum of square(TSS) is =',ol)
+
+#REGRESSION SUM OF SQUARE
 d = np.array([gt - 10.16])
 jk = np.array([d ** 2 for d in d])
 ok = np.sum(jk)
 print('The REGRESSION SUM OF SQUARE (RSS)is =',ok)
+
+#ERROR SUM OF SQUARE
 differences = [Y - gt]
 sq_differences = [d ** 2 for d in differences]
 ssd = np.sum(sq_differences)
 print('The ERROR sum of square is(ESS) =.',ssd)
+
+#R SQUARE COEFFICIENT OF DETERMINATION
 print("R SQUARE COEFFICIENT OF DETERMINATION")
 print("R SQUARE VALUE IS=",ok/ol)
+
 #Summary of Whole Data
 print(rt.summary())
+
+#ANOVA TABLE
 print ("ANOVA TABLE FOR GIVEN DATA")
 mod = ols('Y ~ X1 + X2', data=fg).fit()
 aov_table = sm.stats.anova_lm(mod, typ=2)
 print(aov_table)
+
 #ONe Sample T Test
 print("ONE SAMPLE T TEST")
 one=stats.ttest_1samp(X1, 0.0)
@@ -51,6 +66,7 @@ one=stats.ttest_1samp(X2, 0.0)
 print(one)
 one=stats.ttest_1samp(Y, 0.0)
 print(one)
+
 #SCAtter PLOT
 ax.scatter(X1,X2,Y,c='blue',marker='o')
 ax.set_xlabel("X1")
